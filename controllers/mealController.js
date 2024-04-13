@@ -33,7 +33,7 @@ const createMeal = async (req, res) => {
 
     if (
         !req.body.calories ||
-        !req.body.protien ||
+        !req.body.protein ||
         !req.body.fats ||
         !req.body.carbs
     ) {
@@ -42,8 +42,16 @@ const createMeal = async (req, res) => {
         });
     }
 
+    const defaultUserId = 1;
+
     try {
-        const result = await knex("meal").insert(req.body);
+        const result = await knex("meal").insert({
+            calories: req.body.calories,
+            protein: req.body.protein,
+            fats: req.body.fats,
+            carbs: req.body.carbs,
+            user_id: defaultUserId, // Assign default user ID
+        });
 
         const newMealId = result[0];
         const createdMeal = await knex("meal").where({ id: newMealId });
