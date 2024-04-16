@@ -13,6 +13,12 @@ exports.up = function (knex) {
                 .timestamp("updated_at")
                 .defaultTo(knex.raw("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"));
         })
+        .then(() => {
+            return knex("user").insert({
+              user_name: "default_user",
+              password: "default_password",
+            });
+          })
         .createTable("meal", (table) => {
             table.increments("id").primary();
             table.integer("calories").notNullable();

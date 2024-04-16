@@ -44,7 +44,7 @@ const getAllWorkouts = async (_req, res) => {
 
     try {
         const result = await knex("workout").insert({
-            name: req.body.workout_name,
+            workout_name: req.body.workout_name,
             sets: req.body.sets,
             reps: req.body.reps,
             user_id: defaultUserId, // Assign default user ID
